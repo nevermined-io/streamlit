@@ -1,11 +1,25 @@
+import time
 import streamlit as st
-from nevermined import nevermined
+from streamlit_javascript import st_javascript
+from streamlit.components.v1 import html
 
-# time/buyer: did:nv:94695d1a2f88f1de82ebff727185cc80def231ad7f974b1d46ebf961b9e76be9
-# credits/owner (400 credits left): did:nv:f83ebdb36803ceca6ce0e7aa1e9cea1da7a0388dde03aac03c3bcbcb97497cc8
-# credits/buyer: did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251
-# url = 'http://localhost:3000/streamlit?did=did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251'
+st.markdown('<iframe src="http://localhost:3000/streamlit?did=did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251" />', unsafe_allow_html=True)
 
-token = nevermined(did='did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251')
+html("""
+<script>
+    parent.window.addEventListener('message', (e) => {
+        if (e.data.type === 'streamlit:token') {
+            parent.window.token = e.data.token;
+        }
+    },false);
+</script>
+""")
 
-print(token)
+key = 0
+while True:
+    key += 1
+    token = st_javascript('parent.window.token', key=key)
+    if token:
+        # print(token)
+        break
+    time.sleep(1)
