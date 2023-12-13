@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_javascript import st_javascript
 from streamlit.components.v1 import html
 
-st.markdown('<iframe src="http://localhost:3000/streamlit?did=did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251" />', unsafe_allow_html=True)
+st.markdown('<iframe src="http://localhost:3000/streamlit?did=did:nv:4a72bef4b755094f70f40e17b9edf82ea0efafc466098b61a2a47ee9874d4251" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
 
 html("""
 <script>
