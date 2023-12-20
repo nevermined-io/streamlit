@@ -2,8 +2,46 @@ import time
 import streamlit as st
 from streamlit_javascript import st_javascript
 from streamlit.components.v1 import html
+import requests
 
-st.markdown('<iframe src="http://localhost:3000/streamlit?did=did:nv:b0fb4abcfd49be732d828f9e58c5aa28f334960cd58efb4c6ef2f66697460745" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
+def ask_elvis(prompt, url, token):
+    data = {
+        "queries": [
+            {
+                "query": prompt,
+                "top_k": 3
+            }
+        ]
+    }
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+
+    print(url, data, headers)
+    response = requests.post(url, json=data, headers=headers)
+    print(response.status_code, response.text)
+    if response.ok:
+        return response.text
+    else:
+        return "There was a problem with the prompt"
+
+
+st.markdown('<iframe src="http://localhost:3000/streamlit?did=did:nv:e3df98ba99db7340494aabae193b2b212b80ea6fcc152d9e333624c103f6da86" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
+
+if prompt := st.chat_input("What is up?"):
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("ai"):
+        if "nvm" in st.session_state:
+            jwt = st.session_state["nvm"]["jwt"]
+            url = st.session_state["nvm"]["url"]
+            response = ask_elvis(prompt, url, jwt)
+            
+            st.markdown(response)
+        else:
+            st.markdown("Please login or subscribe first!")
 
 html("""
 <script>
@@ -16,10 +54,15 @@ html("""
 """, height=0)
 
 key = 0
-while True:
+while "nvm" not in st.session_state:
     key += 1
     token = st_javascript('parent.window.token', key=key)
+    print(token)
     if token:
         print(token)
+        st.session_state["nvm"] = {
+            "jwt": token["data"]["jwtToken"]["accessToken"],
+            "url": f'{token["data"]["proxyUrl"]}/ask'
+        }
         break
-    time.sleep(5)
+    time.sleep(1)
