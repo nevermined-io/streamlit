@@ -26,7 +26,7 @@ def ask_elvis(prompt, url, token):
         return "There was a problem with the prompt"
 
 
-st.markdown('<iframe sandbox="allow-scripts allow-top-navigation" src="https://goerli.nevermined.one/streamlit?did=did:nv:257a5999aa3bc96510a931184dc8afaa42dbb8f4e61ac47a03bbb546edd1b860" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
+st.markdown('<iframe sandbox="allow-scripts allow-same-origin allow-top-navigation" src="https://goerli.nevermined.one/streamlit?did=did:nv:257a5999aa3bc96510a931184dc8afaa42dbb8f4e61ac47a03bbb546edd1b860" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
 
 if prompt := st.chat_input("What is up?"):
     # Display user message in chat message container
