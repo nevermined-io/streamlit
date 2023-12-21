@@ -28,41 +28,41 @@ def ask_elvis(prompt, url, token):
 
 st.markdown('<iframe sandbox="allow-scripts allow-same-origin allow-top-navigation" src="https://goerli.nevermined.one/streamlit?did=did:nv:257a5999aa3bc96510a931184dc8afaa42dbb8f4e61ac47a03bbb546edd1b860" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
 
-# if prompt := st.chat_input("What is up?"):
-#     # Display user message in chat message container
-#     with st.chat_message("user"):
-#         st.markdown(prompt)
+if prompt := st.chat_input("What is up?"):
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-#     with st.chat_message("ai"):
-#         if "nvm" in st.session_state:
-#             jwt = st.session_state["nvm"]["jwt"]
-#             url = st.session_state["nvm"]["url"]
-#             response = ask_elvis(prompt, url, jwt)
+    with st.chat_message("ai"):
+        if "nvm" in st.session_state:
+            jwt = st.session_state["nvm"]["jwt"]
+            url = st.session_state["nvm"]["url"]
+            response = ask_elvis(prompt, url, jwt)
             
-#             st.markdown(response)
-#         else:
-#             st.markdown("Please login or subscribe first!")
+            st.markdown(response)
+        else:
+            st.markdown("Please login or subscribe first!")
 
-# html("""
-# <script>
-#     parent.window.addEventListener('message', (e) => {
-#         if (e.data.type === 'streamlit:token') {
-#             parent.window.token = e.data;
-#         }
-#     },false);
-# </script>
-# """, height=0)
+html("""
+<script>
+    parent.window.addEventListener('message', (e) => {
+        if (e.data.type === 'streamlit:token') {
+            parent.window.token = e.data;
+        }
+    },false);
+</script>
+""", height=0)
 
-# key = 0
-# while "nvm" not in st.session_state:
-#     key += 1
-#     token = st_javascript('parent.window.token', key=key)
-#     print(token)
-#     if token:
-#         print(token)
-#         st.session_state["nvm"] = {
-#             "jwt": token["data"]["jwtToken"]["accessToken"],
-#             "url": f'{token["data"]["proxyUrl"]}/ask'
-#         }
-#         break
-#     time.sleep(1)
+key = 0
+while "nvm" not in st.session_state:
+    key += 1
+    token = st_javascript('parent.window.token', key=key)
+    print(token)
+    if token:
+        print(token)
+        st.session_state["nvm"] = {
+            "jwt": token["data"]["jwtToken"]["accessToken"],
+            "url": f'{token["data"]["proxyUrl"]}/ask'
+        }
+        break
+    time.sleep(1)
