@@ -48,8 +48,6 @@ html("""
     parent.window.addEventListener('message', (e) => {
         if (e.data.type === 'streamlit:token') {
             parent.window.token = e.data;
-        } else if (e.data.type === 'streamlit:authtoken') {
-            parent.window.location.href = e.data.url;
         }
     },false);
 </script>
