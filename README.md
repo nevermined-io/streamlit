@@ -11,10 +11,10 @@ $ streamlit run nevermined-app.py
 
 ## Integrating the widget in a streamlit app
 
-Start by adding the widget to your app with the _did_ of your webservice (e.g. `did:nv:257a5999aa3bc96510a931184dc8afaa42dbb8f4e61ac47a03bbb546edd1b860`).
+Start by adding the widget to your app with the _did_ of your webservice (e.g. `did:nv:5a06236a0bb1620c171a17a2e4d82935b1b63274011aeb1d9efcce87e83f0fee`).
 
 ```python
-st.markdown('<iframe src="https://goerli.nevermined.one/streamlit?did=did:nv:257a5999aa3bc96510a931184dc8afaa42dbb8f4e61ac47a03bbb546edd1b860" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
+st.markdown('<iframe src="https://testing.nevermined.app/streamlit?did=did:nv:5a06236a0bb1620c171a17a2e4d82935b1b63274011aeb1d9efcce87e83f0fee" style="border-radius: 10px; width: 100%;" />', unsafe_allow_html=True)
 ```
 
 Wait for the user authentication token and proxy url. This should be added at the end of the app not to block other elements from rendering
@@ -60,8 +60,7 @@ response = requests.post(url, json=data, headers=headers)
 The _did_ is the unique identifier of any asset existing on Nevermined. You can get the _did_ from the url of the service on the Nevermined App. For example on this url:
 
 ```
-https://goerli.nevermined.one/en/webservice/did:nv:2969eb691f7e82e0a3f5f29d69443a496643104dc9385b2714e98cbdceb4de05
+https://testing.nevermined.app/streamlit?did=did:nv:5a06236a0bb1620c171a17a2e4d82935b1b63274011aeb1d9efcce87e83f0fee
 ```
 
-The _did_ is the identifier of the webservice starting by `did:nv:`. Meaning in this case the _did_ is `did:nv:2969eb691f7e82e0a3f5f29d69443a496643104dc9385b2714e98cbdceb4de05`
-
+The _did_ is the identifier of the webservice starting by `did:nv:`. Meaning in this case the _did_ is `did:nv:5a06236a0bb1620c171a17a2e4d82935b1b63274011aeb1d9efcce87e83f0fee`
